@@ -1,0 +1,14 @@
+.navbar {
+    background: #464979;
+}
+body {
+    background: #e9e8ed;
+}
+.grid-view img {
+    width: 30px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-left: auto;
+    margin-right: auto;
+}

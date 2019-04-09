@@ -4,13 +4,13 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\RegisterForm;
 
-class SiteController extends Controller
+class SiteController extends AppController
 {
     /**
      * {@inheritdoc}
@@ -72,11 +72,13 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
+
             return $this->goHome();
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            Yii::$app->session->setFlash('success', 'Successfully');
             return $this->goBack();
         }
 
@@ -125,4 +127,21 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+
+    public function actionRegistration() {
+        $model = new RegisterForm();
+        if (isset($_POST['RegisterForm'])) {
+            $model->attributes = Yii::$app->request->post('RegisterForm');
+            if ($model->validate() && $model->register()) {
+                Yii::$app->session->setFlash('success', 'Successfully');
+                return $this->goHome();
+            } else {
+                Yii::$app->session->setFlash('error', 'Registration failed');
+            }
+        }
+        return $this->render('registration', compact('model'));
+    }
+
+
 }
