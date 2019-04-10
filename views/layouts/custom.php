@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use app\models\Project;
 use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
@@ -35,10 +36,12 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Profile', 'url' => ['/profile/index'], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'Projects', 'url' => ['/profile/index'], 'visible' => !Yii::$app->user->isGuest and Yii::$app->request->get('id')],
             ['label' => 'Sprints', 'url' => ['/sprint/index'], 'visible' => !Yii::$app->user->isGuest],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
@@ -77,7 +80,9 @@ AppAsset::register($this);
     </div>
 </footer>
 
-<?php $this->endBody() ?>
+<?php
+
+$this->endBody() ?>
 </body>
 </html>
 <?php $this->endPage() ?>

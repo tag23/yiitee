@@ -6,7 +6,9 @@
  * Time: 8:26 PM
  */
 //\app\controllers\debug($model);
+use app\models\Project;
 use app\models\ProjectSearch;
+use app\models\User;
 use yii\grid\GridView;
 
 $this->title = Yii::t('app', 'Projects');
@@ -19,13 +21,20 @@ $this->params['breadcrumbs'][] = $this->title;
     echo GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            'id',
             'name:ntext',
+            ['attribute'=>'user_id',
+                'header'=>'creator',
+                'value' => function ($model) {
+                    $name = User::findOne(Yii::$app->user->identity->getId())->getName();
+                    return $name;
+                }
+            ],
             ['class'=>\yii\grid\DataColumn::className(),
                 'attribute'=>'project_image',
                 'format'=>'image',
                 'header'=> 'icon',
                 'headerOptions' => ['width' => '20'],],
+
             ['class' => 'yii\grid\ActionColumn',
                 'header'=>'actions',
                 'headerOptions' => ['width' => '60'],
@@ -45,4 +54,5 @@ $this->params['breadcrumbs'][] = $this->title;
         echo '</pre>';
     }
 */
+
 ?>

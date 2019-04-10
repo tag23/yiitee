@@ -9,14 +9,15 @@
 namespace app\models;
 
 
+use Yii;
 use yii\data\ActiveDataProvider;
 
 class ProjectSearch extends Project
 {
     public function rules() {
         return  [
-            [['id'], 'integer'],
-            [['name', 'project_image'], 'safe'],
+            //[['id'], 'integer'],
+            [['name', 'project_image', 'user_id'], 'safe'],
         ];
     }
     public function scenarios()
@@ -25,7 +26,7 @@ class ProjectSearch extends Project
     }
 
     public function search($params) {
-        $query = Project::find();
+        $query = Project::findBySql("SELECT * FROM Projects WHERE user_id=". Yii::$app->user->identity->getId());
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -38,9 +39,10 @@ class ProjectSearch extends Project
         }
 
         $query->andFilterWhere([
-            'id' => $this->getAttribute('id'),
+            //'id' => $this->getAttribute('id'),
             'name' => $this->getAttribute('name'),
             'project_image' => $this->getAttribute('project_image'),
+            'user_id' => $this->getAttribute('user_id')
         ]);
 
         return $dataProvider;

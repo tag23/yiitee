@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-profile">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <?=  Html::a('Редактировать профиль', ['profile/edit'], ['class' => 'profile']);?>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

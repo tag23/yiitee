@@ -9,7 +9,10 @@
 namespace app\models;
 
 use Yii;
+use yii\base\Exception;
 use yii\base\Model;
+use yii\helpers\FileHelper;
+use yii\web\UploadedFile;
 
 class EditProfileForm extends Model
 {
@@ -23,10 +26,17 @@ class EditProfileForm extends Model
     }
     public function update()
     {
-        $url = '/images/projects/' . $this->image->baseName . '.' . $this->image->extension;
-        //
         $_user = $this->findModel();
-        $_user->setImage($url);
+        if ($this->image = UploadedFile::getInstance($this, 'image')) {
+            $userImgName = 'useravatar_' . $_user->getName() . '.' . $this->image->extension;
+            $path = '/images/users/' . $userImgName;
+
+            $this->image->saveAs(Yii::getAlias('@userImgPath') . '/' . $userImgName);
+        }
+        //$url = $path . $this->image->baseName . '.' . $this->image->extension;
+        //
+
+        $_user->setImage($path);
         return $_user->save();
     }
     private function findModel()

@@ -39,6 +39,7 @@ class RegisterForm extends Model
         $user->email = $this->email;
         $user->name = $this->name;
         $user->setPassword($this->password);
+        $user->setImage('/images/users/default/default_image_avatar.png');
         return $user->save();
     }
 }

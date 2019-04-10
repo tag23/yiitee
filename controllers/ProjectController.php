@@ -32,6 +32,7 @@ class ProjectController extends AppController
     public function actionView($id)
     {
         $project = Project::findOne($id);
+        $this->layout = 'custom';
         return $this->render('view',[
             'project'=>$project,
         ]);

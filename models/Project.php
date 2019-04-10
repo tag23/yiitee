@@ -19,10 +19,17 @@ class Project extends ActiveRecord
 
     public function rules() {
         return [
-            [['id'], 'required'],
+            //[['id'], 'required'],
             [['name'], 'string'],
             [['project_image'], 'string'],
+            [['user_id'], 'integer']
         ];
+    }
+
+
+    public function getName()
+    {
+        return $this->name;
     }
 
     public function attributeLabels()
