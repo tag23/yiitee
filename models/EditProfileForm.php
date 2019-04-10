@@ -23,10 +23,10 @@ class EditProfileForm extends Model
     }
     public function update()
     {
-        //$url = $this->image->baseName . '.' . $this->image->extension;
+        $url = '/images/projects/' . $this->image->baseName . '.' . $this->image->extension;
         //
         $_user = $this->findModel();
-        //$_user->setImage($url);
+        $_user->setImage($url);
         return $_user->save();
     }
     private function findModel()

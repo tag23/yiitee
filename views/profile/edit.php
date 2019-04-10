@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
 
-$form = ActiveForm::begin(['options' => ['id' => 'form-edit']]); ?>
+$form = ActiveForm::begin(['options' => ['id' => 'form-edit','enctype'=>'multipart/form-data']]); ?>
 
 <?= $form->field($model, 'image')->fileInput(['options' => ['accept' => 'image/*' ] ,])?>
 

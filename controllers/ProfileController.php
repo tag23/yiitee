@@ -53,15 +53,15 @@ class ProfileController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->attributes = Yii::$app->request->post('EditProfileForm');
-            $model->image = UploadedFile::getInstance($model, 'imageFile');
-            if ($model->update($model->image)) {
-                return $this->redirect(['profile/index']);
+            $model->image = UploadedFile::getInstance($model, 'image');
+            if ($model->update()) {
+                return $this->redirect(['index']);
             }
-        }else {
+        }
                 return $this->render('edit', [
                     'model' => $model,
                 ]);
-            }
+
         }
 
     /**
